@@ -1,0 +1,322 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  padding: 0;
+  margin: 0;
+  background-color: black;
+  color: white;
+}
+
+.gameContainer {
+  padding: 20px;
+  width: 700px;
+  border-radius: 10px;
+}
+
+.gameContainer::before, #startGame::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 700px;
+  height: 100vh;
+  background-image: url('/public/img/landing_banner.jpeg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.square {
+  background: #fff;
+  /* border: 1px solid #999; */
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+
+.card {
+  width: 90px;
+  margin-right: 5px;
+  box-shadow: 0 0 1cqb white;
+  border-radius: 7px;
+}
+
+.hand {
+  height: 150px;
+  width: 300px;
+  /* border: 1px solid #ccc; */
+}
+
+.canReveal {
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+}
+
+.canReveal:hover {
+  transform: scale(1.3);
+}
+
+#startGame, .gameContainer {
+  position: fixed;
+  /* top: 50%; */
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+
+#startGame {
+  height: 100vh;
+  width: 700px;
+  text-align: center;
+  /* border: 1px solid white; */
+}
+
+
+@keyframes pulsate {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+#startGame h1 {
+  font-size: 64px;
+  margin-top: 10vh;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5), 8px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+#startGame a {
+  display: inline-block;
+  margin-top: 10vh;
+  background-color: transparent;
+  color: #fff;
+  font-size: 100px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5), 8px 8px 16px rgba(0, 0, 0, 0.3);
+  text-align: center;
+
+  animation: pulsate 2s infinite;
+}
+
+
+#startGame a:hover {
+  animation: none;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5), 8px 8px 16px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+.startGameHuman, .startGameBot {
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid white;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 1);
+}
+
+.startGameVs {
+  display: flex;
+  font-size: 64px;
+  color: white;
+  text-shadow: 4px 5px 4px rgba(0, 0, 0, 1.5), 3px 5px 8px rgba(0, 0, 0, 1.3);
+}
+
+.vsContainer {
+  margin-top: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.playerSection img {
+  width: 90px;
+  border-radius: 30%;
+  -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+    mask-image: radial-gradient(circle, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+}
+
+.row {
+  /* border: 1px dotted red; */
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.column {
+  /* border: 1px solid white; */
+  flex-basis: auto;
+}
+
+.righthandColumn {
+  /* border: 1px solid white; */
+
+  /* flex-basis: auto; */
+}
+
+@keyframes border-pulse {
+  0% {
+    border-color: white;
+  }
+  50% {
+    border-color: transparent;
+  }
+  100% {
+    border-color: white;
+  }
+}
+
+.playersTurn {
+  border: 8px solid white;
+  animation: border-pulse 2s infinite;
+}
+
+.speech-bubble-container {
+  display: flex;
+  justify-content: center;
+  width: 170px;
+  margin-left: 90px;
+}
+
+.speech-bubble {
+  position: relative;
+  display: inline-block;
+  background: #d0d0d0;
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin: 20px;
+  height: 0px;
+  min-height: 40px; /* Ensure some minimum height if needed */
+  max-height: 80px; /* Ensure some minimum height if needed */
+}
+
+.speech-bubble-text {
+  font-size: 16px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* border: 1px solid #ccc; */
+  /* min-height: 40px; /* Ensure some minimum height if needed */
+  /* max-height: 80px; Ensure some minimum height if needed */
+}
+
+.speech-bubble-arrow {
+  right: -10px;
+  border-left: 10px solid #d0d0d0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 10px;
+  height: 35px;
+}
+
+.actionButtons button {
+  padding: 0px 10px;
+  border: 1px solid white;
+  border-radius: 15px;
+  opacity: 0.9;
+  background-color: black;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  animation: pulse 1.5s infinite;
+  box-shadow: 0 0 5px white;
+}
+
+.actionButtons button:hover {
+  background-color: #333;
+  animation: none;
+}
+
+.actionButtons button:focus {
+  outline: none;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes pulseHover {
+  0%, 100% {
+    transform: scale(1.05);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.points, .playerName {
+  text-align: center;
+}
+
+@keyframes points {
+  0% {
+    color: black;
+  }
+  50% {
+    color: red;
+  }
+  100% {
+    color: black;
+  }
+}
+
+@keyframes explode {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+.pointsAnimation {
+  animation: points 0.3s ease-in-out, explode 0.3s linear forwards;
+}

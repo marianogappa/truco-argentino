@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+	<script src="wasm/wasm_exec.js"></script>
+	<script>
+        const go = new Go(); // Defined in wasm_exec.js
+        const WASM_URL = 'wasm/wasm.wasm';
+
+        var wasm;
+        let trucoState;
+        let humanPlayerID = 0;
+        let lastRoundNumber = 1;
+        let wasmReady = false;
+
+        if ('instantiateStreaming' in WebAssembly) {
+            WebAssembly.instantiateStreaming(fetch(WASM_URL), go.importObject).then(function (obj) {
+                wasm = obj.instance;
+                go.run(wasm);
+                wasmReady = true;
+            })
+        } else {
+            fetch(WASM_URL).then(resp =>
+                resp.arrayBuffer()
+            ).then(bytes =>
+                WebAssembly.instantiate(bytes, go.importObject).then(function (obj) {
+                    wasm = obj.instance;
+                    go.run(wasm);
+                    wasmReady = true;
+                })
+            )
+        }
+
+        function jsRunAction(data) {
+            const encoder = new TextEncoder();
+            const encodedData = encoder.encode(JSON.stringify(data));
+            const result = trucoRunAction(encodedData);
+            const json = new TextDecoder().decode(result);
+            return JSON.parse(json);
+        }
+
+        function jsBotRunAction() {
+            const result = trucoBotRunAction();
+            const json = new TextDecoder().decode(result);
+            return JSON.parse(json);
+        }
+
+        function jsTrucoNew() {
+            const result = trucoNew();
+            const json = new TextDecoder().decode(result);
+            return JSON.parse(json);
+        }
+
+  </script>
+
+</head>
+<body>
+  <div id="root"></div>
+</body>
+</html>
