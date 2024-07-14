@@ -3,10 +3,13 @@ import { useState, useRef, useEffect } from 'react';
 export default function PlayerSection({name, points, imgSrc, isTheirTurn}) {
     const className = isTheirTurn ? "playerImg playersTurn" : "playerImg";
     return (
-        <div id={name} className="playerSection righthandColumn">
+        <div id={name} className="playerSection column">
             <img className={className} src={imgSrc}/>
-            <div className="playerName">{name}</div>
-            <Points points={points} />
+            <div className="namePointsContainer">
+              <span className="playerName">{name}</span>
+              <span className='dot'> • </span>
+              <Points points={points} />
+            </div>
         </div>
     )
 }
@@ -32,8 +35,8 @@ const Points = ({ points }) => {
     }, [points]);
   
     return (
-      <div className={`points ${isAnimating ? 'pointsAnimation' : ''}`}>
+      <span className={`points ${isAnimating ? 'pointsAnimation' : ''}`}>
         {currentValue} pts
-      </div>
+      </span>
     );
   };

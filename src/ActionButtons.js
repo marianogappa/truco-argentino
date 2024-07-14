@@ -1,6 +1,8 @@
 export default function ActionButtons({isHumanTurn, actions, handleAction}) {
     if (!isHumanTurn) {
-        return null;
+        return (
+            <div className="actionButtons"></div>
+        );
     }
     return (
         <div className="actionButtons">

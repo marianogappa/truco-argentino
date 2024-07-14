@@ -2,7 +2,7 @@ import React from 'react';
 
 const SpeechBubble = ({ playerID, lastActionLog }) => {
     const empty = (
-            <div className="speech-bubble-container">
+            <div className="speech-bubble-container column">
             </div>
     )
     if (!lastActionLog) {
@@ -61,7 +61,7 @@ const SpeechBubble = ({ playerID, lastActionLog }) => {
     }
 
   return (
-    <div className="speech-bubble-container">
+    <div className="speech-bubble-container column">
         <div className="speech-bubble">
         <div className="speech-bubble-text">{text}</div>
         <div className="speech-bubble-arrow"></div>

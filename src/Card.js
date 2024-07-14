@@ -9,7 +9,7 @@ export default function Card({isBackwards, card, actions, handleAction}) {
     );
   }
   if (card.number === null || card.suit === null) {
-    return null;
+    return <span className="card" />;
   }
 
   function mapCardNumberToChar(number) {
