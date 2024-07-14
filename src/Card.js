@@ -4,7 +4,7 @@ export default function Card({isBackwards, card, actions, handleAction}) {
   if (isBackwards) {
     return (
       <>
-        <img className="card" src="/img/reverso.png" />
+        <img className="card" src={`${process.env.PUBLIC_URL}/img/reverso.png`} />
       </>
     );
   }
@@ -20,7 +20,7 @@ export default function Card({isBackwards, card, actions, handleAction}) {
     }
   }
 
-  const src = `/img/${mapCardNumberToChar(card.number)}-${card.suit}s.png`;
+  const src = `${process.env.PUBLIC_URL}/img/${mapCardNumberToChar(card.number)}-${card.suit}s.png`;
 
   let handleClick = () => {}
 

@@ -55,7 +55,7 @@ function Game({manager}) {
           <Hand isBackwards={true} cards={Array(gameState.theirUnrevealedCardLength).fill({})} />
         </div>
         <SpeechBubble playerID={0} lastActionLog={gameState.lastActionLog} className="column" />
-        <PlayerSection name="Bot" points={gameState.theirScore} imgSrc={"/img/bot.png"} isTheirTurn={isBotTurn} />
+        <PlayerSection name="Bot" points={gameState.theirScore} imgSrc={`${process.env.PUBLIC_URL}/img/bot.png`} isTheirTurn={isBotTurn} />
       </div>
       <div className="theirRevealedCards">
         <Hand cards={gameState.theirRevealedCards} />
@@ -69,7 +69,7 @@ function Game({manager}) {
           <Hand cards={gameState.yourUnrevealedCards} actions={gameState.possibleActions} handleAction={handleAction} />
         </div>
         <SpeechBubble playerID={1} lastActionLog={gameState.lastActionLog} className="column" />
-        <PlayerSection name="Vos" points={gameState.yourScore} imgSrc={"/img/human.jpeg"} isTheirTurn={isHumanTurn} />
+        <PlayerSection name="Vos" points={gameState.yourScore} imgSrc={`${process.env.PUBLIC_URL}/img/human.jpeg`} isTheirTurn={isHumanTurn} />
       </div>
       <ActionButtons 
         className="actionButtons"
@@ -102,9 +102,9 @@ export default function GameLandingPage() {
       <div id="startGame">
         <h1>TRUCO ARGENTINO</h1>
         <div className="vsContainer">
-          <img className="startGameHuman" src="/img/human.jpeg" />
+          <img className="startGameHuman" src={`${process.env.PUBLIC_URL}/img/human.jpeg`} />
           <span className="startGameVs">VS</span>
-          <img className="startGameBot" src="/img/bot.png" />
+          <img className="startGameBot" src={`${process.env.PUBLIC_URL}/img/bot.png`} />
         </div>
         <a id="startGameButton" onClick={startGame}>▶️</a>
       </div>
