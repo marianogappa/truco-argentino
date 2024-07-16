@@ -29,7 +29,10 @@ function ActionButton({action, handleAction}) {
             text = 'Truco';
             break;
         case 'say_envido_quiero':
-            text = `Quiero con ${action.score}`;
+            text = `Quiero`;
+            break;
+        case 'say_envido_score':
+            text = `${action.score}`;
             break;
         case 'say_truco_quiero':
             text = 'Quiero';

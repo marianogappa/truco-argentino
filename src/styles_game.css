@@ -12,7 +12,7 @@
   flex-direction: column;
   flex: 0 0 auto;
   overflow-y: hidden;
-  padding: 3vh;
+  padding: 2vh;
 }
 
 .gameContainer::before {
@@ -52,9 +52,8 @@
 .playerSection {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: top;
   margin-right: 2vh;
-  margin-bottom: 0.5vh;
   border-radius: 30%;
   padding: 1vh;
   opacity: 0.8;
@@ -159,6 +158,7 @@
   /* gap: 1vh; */
   height: 10vh;
   padding-top: 1.5vh;
+  margin-bottom: 7vh;
   /* border: 1px solid white; */
 }
 
