@@ -34,6 +34,9 @@ function ActionButton({action, handleAction}) {
         case 'say_envido_score':
             text = `${action.score}`;
             break;
+        case 'reveal_envido_score':
+            text = `${action.score} en mesa`;
+            break;
         case 'say_truco_quiero':
             text = 'Quiero';
             break;
