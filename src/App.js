@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { createRoot } from "react-dom/client";
 import React, { StrictMode } from "react";
 import { GameStateManager } from './gameState';
@@ -19,6 +19,14 @@ function Game({manager}) {
   const isHumanTurn = gameState.turnPlayerID === 0;
   const isBotTurn = gameState.turnPlayerID === 1;
 
+  useEffect(() => {
+    if (gameState.isEnded) {
+      alert(`Game ended. ${gameState.winnerID === 0 ? "Ganaste!" : "Perdiste!"}`);
+    }
+  }, [gameState.isEnded]);
+
+  console.log(gameState)
+
   return (
     <div className="viewportContainer">
       <div className="sideColumn"></div>
@@ -29,7 +37,7 @@ function Game({manager}) {
         </div>
         <div className="row">
           <div className="theirUnrevealedCards column">
-            <Hand isBackwards={true} cards={Array(gameState.theirUnrevealedCardLength).fill({})} />
+            <Hand cards={gameState.theirDisplayUnrevealedCards} />
           </div>
         </div>
         <div className="theirRevealedCards row">
@@ -42,7 +50,7 @@ function Game({manager}) {
         </div>
         <div className="row">
           <div className="yourUnrevealedCards column">
-            <Hand cards={gameState.yourUnrevealedCards} actions={gameState.possibleActions} handleAction={handleAction} />
+            <Hand cards={gameState.yourDisplayUnrevealedCards} actions={gameState.possibleActions} handleAction={handleAction} />
           </div>
           {/* <SpeechBubble playerID={1} lastActionLog={gameState.lastActionLog} className="column" /> */}
         </div>

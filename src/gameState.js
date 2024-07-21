@@ -63,6 +63,8 @@ export class GameStateManager {
                     default:
                         break;
                 }
+            } else {
+                playAudio('press');
             }
         }
 

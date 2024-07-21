@@ -30,6 +30,7 @@
 }
 
 .card {
+  display: inline-block;
   width: 10vh;
   margin-right: 1vh;
   box-shadow: 0 0 1cqb white;

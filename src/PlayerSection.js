@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { playAudio } from './audio';
 
 export default function PlayerSection({name, points, imgSrc, isTheirTurn}) {
     const className = isTheirTurn ? "playerImg playersTurn" : "playerImg";
@@ -20,11 +21,11 @@ const Points = ({ points }) => {
     const prevValueRef = useRef(points);
   
     useEffect(() => {
-    console.log('points', points, prevValueRef);
       if (prevValueRef.current !== points) {
         setIsAnimating(true);
         setCurrentValue(points);
         prevValueRef.current = points;
+        playAudio('coin', {enqueue: false, separate: true, volume: 5});
         
         const timer = setTimeout(() => {
           setIsAnimating(false);

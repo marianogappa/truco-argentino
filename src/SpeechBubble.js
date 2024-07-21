@@ -13,7 +13,7 @@ const SpeechBubble = ({ playerID, lastActionLog }) => {
     if (playerID === actionPlayerID) {
         return empty;
     }
-    if (action.name === 'reveal_card' && !action.enMesa) {
+    if (action.name === 'reveal_card' && !action.en_mesa) {
         return empty;
     }
     let text = '';
@@ -60,6 +60,7 @@ const SpeechBubble = ({ playerID, lastActionLog }) => {
             text = 'Me voy al mazo';
             break;
         case 'reveal_card':
+        case 'reveal_envido_score':
             text = `${action.score} en mesa`;
             break;
         default:

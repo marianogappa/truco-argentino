@@ -69,42 +69,59 @@ var audioPaths = {
         "mp3/end 13.mp3",
         "mp3/end 14.mp3",
     ],
+    "press": [
+        "mp3/press.m4a",
+    ],
+    "coin": [
+        "mp3/coin.mp3",
+    ],
 }
 
+let currentAudio = null;
 let audioQueue = [];
-let audio = null;
-let isPlaying = false;
 
-export function playAudio(audioType, enqueue = false) {
+export function playAudio(audioType, config = {}) {
+    const { enqueue = false, separate = false, volume = 100 } = config;
+    
     const paths = audioPaths[audioType];
     if (!paths) {
         return;
     }
 
     const path = paths[Math.floor(Math.random() * paths.length)];
-    
-    if (enqueue && isPlaying) {
-        // Enqueue the new audio path
-        audioQueue.push(path);
-    } else {
-        // Clear the queue and play immediately
-        audioQueue = [path];
-        playNextAudio();
-    }
-}
 
-function playNextAudio() {
-    if (audioQueue.length === 0) {
-        isPlaying = false;
+    const audio = new Audio(path);
+    audio.volume = volume / 100;
+
+    if (separate) {
+        audio.play().catch(error => console.error("Error playing audio:", error));
         return;
     }
 
-    isPlaying = true;
-    const path = audioQueue.shift();
-    audio = new Audio(path);
-    audio.play();
-    
-    audio.onended = () => {
-        window.setTimeout(() => { playNextAudio() }, 300);
-    };
+    if (enqueue) {
+        audioQueue.push(audio);
+        if (audioQueue.length === 1) {
+            playNextInQueue();
+        }
+        return;
+    }
+
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+    }
+
+    currentAudio = audio;
+    audio.play().catch(error => console.error("Error playing audio:", error));
+}
+
+function playNextInQueue() {
+    if (audioQueue.length === 0) return;
+
+    const nextAudio = audioQueue.shift();
+    currentAudio = nextAudio;
+
+    nextAudio.play().then(() => {
+        nextAudio.onended = playNextInQueue;
+    }).catch(error => console.error("Error playing audio:", error));
 }

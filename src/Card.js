@@ -1,15 +1,18 @@
-export default function Card({isBackwards, card, actions, handleAction}) {
+export default function Card({card, actions, handleAction}) {
   actions = actions || [];
 
-  if (isBackwards) {
+  if (card.is_backwards) {
     return (
       <>
-        <img className="card" src={`${process.env.PUBLIC_URL}/img/reverso.png`} />
+        <img className="card" id={`card-was-${card.number}-${card.suit}`} src={`${process.env.PUBLIC_URL}/img/reverso.png`} />
       </>
     );
   }
   if (card.number === null || card.suit === null) {
-    return <span className="card" />;
+    return <div className="card" />;
+  }
+  if (card.is_hole) {
+    return <div className="card" id={`card-was-${card.number}-${card.suit}`} />;
   }
 
   function mapCardNumberToChar(number) {
@@ -32,7 +35,7 @@ export default function Card({isBackwards, card, actions, handleAction}) {
 
   return (
     <>
-      <img className={className} src={src} onClick={handleClick} />
+      <img className={className} id={`card-${card.number}-${card.suit}`} src={src} onClick={handleClick} />
     </>
   );
 }
