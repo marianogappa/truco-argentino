@@ -81,7 +81,7 @@ let currentAudio = null;
 let audioQueue = [];
 
 export function playAudio(audioType, config = {}) {
-    const { enqueue = false, separate = false, volume = 100 } = config;
+    const { enqueue = false, separate = false, volume = 100, waitMs = 0 } = config;
     
     const paths = audioPaths[audioType];
     if (!paths) {
@@ -94,7 +94,7 @@ export function playAudio(audioType, config = {}) {
     audio.volume = volume / 100;
 
     if (separate) {
-        audio.play().catch(error => console.error("Error playing audio:", error));
+        _playWithWait(audio, waitMs);
         return;
     }
 
@@ -112,6 +112,18 @@ export function playAudio(audioType, config = {}) {
     }
 
     currentAudio = audio;
+    _playWithWait(audio, waitMs);
+}
+
+function _playWithWait(audio, waitMs) {
+    if (!waitMs) {
+        _play(audio);
+    } else {
+        setTimeout(() => { _play(audio) }, waitMs);
+    }
+}
+
+function _play(audio) {
     audio.play().catch(error => console.error("Error playing audio:", error));
 }
 

@@ -118,7 +118,7 @@
 
 .speech-bubble-text {
   font-size: 2vh;
-  width: 14vh;
+  width: 18vh;
   color: #333;
   display: flex;
   align-items: center;
@@ -163,7 +163,7 @@
   /* border: 1px solid white; */
 }
 
-.actionButtons button {
+.actionButtons button, #modal button {
   display: inline-block;
   padding: 2px 1.5vh;
   margin-right: 1vh;
@@ -180,7 +180,7 @@
   box-shadow: 0 0 5px white;
 }
 
-.actionButtons button:hover {
+.actionButtons button:hover, #modal button:hover {
   background-color: #333;
   animation: none;
 }

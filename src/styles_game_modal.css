@@ -1,0 +1,39 @@
+#roundOverModalOverlay {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease;
+}
+
+#modal {
+  background-color: transparent;
+  transform: scale(0.7);
+  transition: transform 0.5s ease;
+}
+
+#roundOverModalOverlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+#roundOverModalOverlay.show #modal {
+  transform: scale(1);
+}
+
+#modal button {
+  padding: 3vh;
+  font-size: 3vh;
+}
+
+.hidden {
+  display: none;
+}

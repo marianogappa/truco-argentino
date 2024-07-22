@@ -6,14 +6,17 @@ export default function ActionButtons({isHumanTurn, actions, handleAction}) {
     }
     return (
         <div className="actionButtons">
-        {actions.filter(action => action.name != 'reveal_card').map((action) => (
+        {actions.filter(action => action.name != 'reveal_card' && action.name != 'confirm_round_finished').map((action) => (
             <ActionButton action={action} handleAction={handleAction}  />
         ))}
         </div>
     );
 }
   
-function ActionButton({action, handleAction}) {
+export function ActionButton({action, handleAction}) {
+    if (!action) {
+        return null;
+    }
     let text = '';
     switch (action.name) {
         case 'say_envido':
@@ -65,6 +68,8 @@ function ActionButton({action, handleAction}) {
         case 'confirm_round_finished':
             text = 'Siguiente mano';
             break;
+        case 'leave_game':
+            text = '¿Otro?';
         default:
             break;
     }

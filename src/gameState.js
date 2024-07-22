@@ -13,9 +13,11 @@ export class GameStateManager {
 
     runAction(action, callback) {
         if (this.gameState.turnPlayerID === 0) {
-            this.gameState = jsRunAction(action);
+            if (action) {
+                this.gameState = jsRunAction(action);
+            }
         } else {
-            this.gameState = jsBotRunAction();
+            this.runBotAction();
         }
 
         this.playSound();
@@ -26,6 +28,10 @@ export class GameStateManager {
         }
 
         return this.gameState;
+    }
+
+    runBotAction() {
+        this.gameState = jsBotRunAction();
     }
 
     playSound() {
@@ -66,10 +72,6 @@ export class GameStateManager {
             } else {
                 playAudio('press');
             }
-        }
-
-        if (this.turnPlayerID == this.you && this.gameState.isRoundFinished === true) {
-            playAudio('end', true);
         }
 
         if (this.gameState.isEnded === true) {
