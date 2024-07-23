@@ -13,7 +13,7 @@ export class GameStateManager {
 
     runAction(action, callback) {
         if (this.gameState.turnPlayerID === 0) {
-            if (action) {
+            if (action && action.name) {
                 this.gameState = jsRunAction(action);
             }
         } else {
@@ -23,7 +23,7 @@ export class GameStateManager {
         this.playSound();
 
         // If the game is not ended and it's the bot's turn, we run the bot action after a delay
-        if (!this.gameState.isEnded && this.gameState.turnPlayerID !== 0) {
+        if (!this.gameState.isGameEnded && this.gameState.turnPlayerID !== 0) {
             window.setTimeout(() => callback(this.runAction({}, callback)), 2000);
         }
 
@@ -74,9 +74,6 @@ export class GameStateManager {
             }
         }
 
-        if (this.gameState.isEnded === true) {
-            playAudio('finish', true);
-        }
     }
 }
 

@@ -1,5 +1,5 @@
-export default function ActionButtons({isHumanTurn, actions, handleAction}) {
-    if (!isHumanTurn) {
+export default function ActionButtons({isHumanTurn, actions, handleAction, isGameEnded}) {
+    if (!isHumanTurn || isGameEnded) {
         return (
             <div className="actionButtons"></div>
         );

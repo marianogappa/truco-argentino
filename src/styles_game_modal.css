@@ -1,4 +1,4 @@
-#roundOverModalOverlay {
+#roundOverModalOverlay, #gameOverModalOverlay {
   display: flex;
   height: 100vh;
   width: 100vw;
@@ -6,7 +6,7 @@
   top: 0;
   left: 0;
 
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   align-items: center;
   justify-content: center;
   opacity: 0;
@@ -20,12 +20,12 @@
   transition: transform 0.5s ease;
 }
 
-#roundOverModalOverlay.show {
+#roundOverModalOverlay.show, #gameOverModalOverlay.show {
   opacity: 1;
   visibility: visible;
 }
 
-#roundOverModalOverlay.show #modal {
+#roundOverModalOverlay.show #modal, #gameOverModalOverlay.show #modal {
   transform: scale(1);
 }
 
@@ -36,4 +36,26 @@
 
 .hidden {
   display: none;
+}
+
+#gameOverText {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  gap: 1vh;
+}
+#gameOverText img {
+  height: 20vh;
+  border-radius: 30%;
+  -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+    mask-image: radial-gradient(circle, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+}
+#gameOverText span {
+  font-size: 9vh;
+}
+#modal {
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
 }
