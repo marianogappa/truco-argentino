@@ -112,19 +112,25 @@ export function playAudio(audioType, config = {}) {
     }
 
     currentAudio = audio;
-    _playWithWait(audio, waitMs);
+    _playWithWait(waitMs);
 }
 
-function _playWithWait(audio, waitMs) {
-    if (!waitMs) {
-        _play(audio);
-    } else {
-        setTimeout(() => { _play(audio) }, waitMs);
+export function stopAudio() {
+    if (currentAudio) {
+        currentAudio.pause();
     }
 }
 
-function _play(audio) {
-    audio.play().catch(error => console.error("Error playing audio:", error));
+function _playWithWait(waitMs) {
+    if (!waitMs) {
+        _play();
+    } else {
+        setTimeout(() => { _play() }, waitMs);
+    }
+}
+
+function _play() {
+    currentAudio.play().catch(error => console.error("Error playing audio:", error));
 }
 
 function playNextInQueue() {

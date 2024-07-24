@@ -7,7 +7,7 @@ import ActionButtons from './ActionButtons';
 import { ActionButton } from './ActionButtons';
 import PlayerSection from './PlayerSection';
 import Hand from './Hand';
-import { playAudio } from './audio';
+import { playAudio, stopAudio } from './audio';
 
 function Game({manager}) {
   const [trigger, setTrigger] = useState(0);
@@ -123,6 +123,7 @@ function Game({manager}) {
 }
 
 function startGame() {
+  stopAudio();
   document.getElementById("startGame").remove();
   const root = createRoot(document.getElementById("game"));
   const manager = new GameStateManager();
