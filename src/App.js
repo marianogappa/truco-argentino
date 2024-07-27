@@ -7,7 +7,8 @@ import ActionButtons from './ActionButtons';
 import { ActionButton } from './ActionButtons';
 import PlayerSection from './PlayerSection';
 import Hand from './Hand';
-import { playAudio, stopAudio } from './audio';
+import { playAudio, stopAudio, setMasterSwitchAudioOn } from './audio';
+import Toggle from './Toggle';
 
 function Game({manager}) {
   const [trigger, setTrigger] = useState(0);
@@ -19,6 +20,7 @@ function Game({manager}) {
   function removeModalAndHandleAction(action) {
     const modalOverlay = document.getElementById('roundOverModalOverlay');
     modalOverlay.classList.remove('show');
+    stopAudio();
     handleAction(action);
   }
 
@@ -122,12 +124,12 @@ function Game({manager}) {
   );
 }
 
-function startGame() {
+function startGame({maxPoints, isFlorEnabled}) {
   stopAudio();
   document.getElementById("startGame").remove();
   const root = createRoot(document.getElementById("game"));
   const manager = new GameStateManager();
-  manager.start()
+  manager.start({maxPoints, isFlorEnabled});
 
   root.render(
     <StrictMode>
@@ -137,9 +139,20 @@ function startGame() {
 }
 
 export default function GameLandingPage() {
+  const [maxPoints, setMaxPoints] = useState(5);
+  const [audioOn, setAudioOn] = useState(true);
+  const [isFlorEnabled, setIsFlorEnabled] = useState(false);
+
   useEffect(() => {
     playAudio('intro', {waitMs: 500});
   }, []);
+
+  useEffect(() => {
+    setMasterSwitchAudioOn(audioOn);
+    if (!audioOn) {
+      stopAudio();
+    }
+  }, [audioOn]);
 
   return (
     <>
@@ -153,7 +166,10 @@ export default function GameLandingPage() {
               <span className="startGameVs">VS</span>
               <img className="startGameBot" src={`${process.env.PUBLIC_URL}/img/bot.png`} />
             </div>
-            <a id="startGameButton" onClick={startGame}>▶️</a>
+            <a id="startGameButton" onClick={() => startGame({maxPoints, isFlorEnabled})}>▶️</a>
+            <Toggle option1Caption={5} option2Caption={15} option1Value={5} option2Value={15} value={maxPoints} onChange={setMaxPoints} />
+            <Toggle option1Caption={"🔊"} option2Caption={"🔇"} option1Value={true} option2Value={false} value={audioOn} onChange={setAudioOn} />
+            <Toggle option1Caption={"🥀"} option2Caption={"🌹"} option1Value={false} option2Value={true} value={isFlorEnabled} onChange={setIsFlorEnabled} />
           </div>
           <div className="sideColumn"></div>
         </div>

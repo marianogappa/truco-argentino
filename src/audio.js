@@ -79,8 +79,17 @@ var audioPaths = {
 
 let currentAudio = null;
 let audioQueue = [];
+let masterSwitchAudioOn = true;
+
+export function setMasterSwitchAudioOn(value) {
+    masterSwitchAudioOn = value;
+}
 
 export function playAudio(audioType, config = {}) {
+    if (!masterSwitchAudioOn) {
+        return;
+    }
+
     const { enqueue = false, separate = false, volume = 100, waitMs = 0 } = config;
     
     const paths = audioPaths[audioType];
@@ -101,7 +110,7 @@ export function playAudio(audioType, config = {}) {
     if (enqueue) {
         audioQueue.push(audio);
         if (audioQueue.length === 1) {
-            playNextInQueue();
+            _playNextInQueue();
         }
         return;
     }
@@ -133,13 +142,13 @@ function _play() {
     currentAudio.play().catch(error => console.error("Error playing audio:", error));
 }
 
-function playNextInQueue() {
+function _playNextInQueue() {
     if (audioQueue.length === 0) return;
 
     const nextAudio = audioQueue.shift();
     currentAudio = nextAudio;
 
     nextAudio.play().then(() => {
-        nextAudio.onended = playNextInQueue;
+        nextAudio.onended = _playNextInQueue;
     }).catch(error => console.error("Error playing audio:", error));
 }

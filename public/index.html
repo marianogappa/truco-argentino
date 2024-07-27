@@ -47,8 +47,10 @@
             return JSON.parse(json);
         }
 
-        function jsTrucoNew() {
-            const result = trucoNew();
+        function jsTrucoNew(rules) {
+            const encoder = new TextEncoder();
+            const encodedData = encoder.encode(JSON.stringify(rules));
+            const result = trucoNew(encodedData);
             const json = new TextDecoder().decode(result);
             return JSON.parse(json);
         }

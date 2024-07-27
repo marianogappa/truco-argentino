@@ -6,8 +6,8 @@ export class GameStateManager {
         this.nextGameState = null;
     }
 
-    start() {
-        this.gameState = jsTrucoNew();
+    start({maxPoints}) {
+        this.gameState = jsTrucoNew({maxPoints});
         return this.gameState;
     }
 

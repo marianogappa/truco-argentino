@@ -34,7 +34,6 @@
 
 #startGame a {
   display: inline-block;
-  margin-top: 10vh;
   background-color: transparent;
   color: #fff;
   font-size: 13vh;
@@ -88,4 +87,40 @@
   background-position: center;
   opacity: 0.5;
   z-index: -1;
+}
+
+.toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toggle-button {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  outline: none;
+  padding: 0.5vh 1vh;
+  margin: 0.5vh;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  border-radius: 50px;
+  text-shadow: 0px 0px 5px rgba(255, 255, 255, 1), 0px 0px 15px rgba(255, 255, 255, 1)
+}
+
+.toggle-button.active {
+  background-color: transparent;
+  color: #fff;
+  border: 2px solid #ffffff9e;
+  animation: borderAnimation 1s;
+}
+
+@keyframes borderAnimation {
+  0% {
+    border-color: #ffffff00;
+  }
+  100% {
+    border-color: #ffffff9e;
+  }
 }
