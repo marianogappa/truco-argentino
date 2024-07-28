@@ -6,8 +6,8 @@ export class GameStateManager {
         this.nextGameState = null;
     }
 
-    start({maxPoints}) {
-        this.gameState = jsTrucoNew({maxPoints});
+    start({maxPoints, isFlorEnabled}) {
+        this.gameState = jsTrucoNew({maxPoints, isFlorEnabled});
         return this.gameState;
     }
 

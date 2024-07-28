@@ -70,6 +70,33 @@ export function ActionButton({action, handleAction}) {
             break;
         case 'leave_game':
             text = '¿Otro?';
+        case 'say_flor':
+            text = 'Flor';
+            break;
+        case 'say_contraflor':
+            text = 'Contraflor';
+            break;
+        case 'say_contraflor_al_resto':
+            text = 'Contraflor al resto';
+            break;
+        case 'say_con_flor_quiero':
+            text = 'Con flor quiero';
+            break;
+        case 'say_con_flor_me_achico':
+            text = 'Con flor me achico';
+            break;
+        case 'say_flor_son_buenas':
+            text = 'Son buenas';
+            break;
+        case 'say_flor_son_mejores':
+            text = `${action.score} son mejores`;
+            break;
+        case 'say_flor_score':
+            text = `${action.score}`;
+            break;
+        case 'reveal_flor_score':
+            text = `${action.score} en mesa`;
+            break;
         default:
             break;
     }
