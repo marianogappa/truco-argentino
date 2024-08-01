@@ -69,7 +69,7 @@
 }
 
 .vsContainer {
-  margin-top: 10vh;
+  margin-top: 5vh;
   display: flex;
   align-items: center;
   flex: 0 0 auto;
@@ -123,4 +123,64 @@
   100% {
     border-color: #ffffff9e;
   }
+}
+
+#startGameButton {
+  margin: 3vh;
+}
+
+#info_link {
+  font-size: 1.5vh;
+  margin-top: 2vh;
+  animation: none;
+  background-color: transparent;
+}
+
+#info_link:hover {
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5), 8px 8px 16px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+}
+
+#infoModal {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  /* transition: opacity 0.5s ease; */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+#infoModal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+#infoText {
+  display: flex;
+  flex-direction: column;
+  width: 30vh;
+  font-size: 1.4vh;
+}
+
+#infoText p {
+  margin: 1vh;
+  padding: 0;
+  line-height: 1.8vh;
+}
+
+#infoText a {
+  color: white;
+}
+
+
+hr {
+  width: 30vh;
 }

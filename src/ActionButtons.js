@@ -19,6 +19,9 @@ export function ActionButton({action, handleAction}) {
     }
     let text = '';
     switch (action.name) {
+        case 'continue':
+            text = 'OK';
+            break;
         case 'say_envido':
             text = 'Envido';
             break;
@@ -70,6 +73,7 @@ export function ActionButton({action, handleAction}) {
             break;
         case 'leave_game':
             text = '¿Otro?';
+            break;
         case 'say_flor':
             text = 'Flor';
             break;

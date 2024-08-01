@@ -103,7 +103,7 @@
 .speech-bubble-container {
   display: flex;
   justify-content: center;
-  width: 14vh;
+  width: 16vh;
 }
 
 .speech-bubble {
@@ -111,22 +111,38 @@
   display: inline-block;
   background: #d0d0d0;
   border-radius: 10px;
-  padding: 1.5vh 0vh 0vh 0vh;
-  margin: 3vh;
-  height: 5.5vh;
+  padding: 0vh 0vh 0vh 0vh;
+  margin: 1vh 0vh 1vh 0vh;
+  height: 11vh;
+  font-size: 1.2vh;
+}
+
+.small-speech-bubble {
+  height: 6vh;
+  margin: 3vh 0vh 1vh 0vh;
+  font-size: 1.8vh;
+}
+
+.medium-speech-bubble {
+  height: 8.5vh;
+  margin: 2vh 0vh 1vh 0vh;
+  font-size: 1.4vh;
 }
 
 .speech-bubble-text {
-  font-size: 2vh;
   width: 18vh;
+  height: 100%;
   color: #333;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  /* border: 1px solid #ccc; */
-  /* min-height: 40px; /* Ensure some minimum height if needed */
-  /* max-height: 80px; Ensure some minimum height if needed */
+}
+
+.speech-bubble-text p {
+  margin: 0;
+  padding: 0;
 }
 
 .speech-bubble-arrow {
@@ -163,7 +179,7 @@
   /* border: 1px solid white; */
 }
 
-.actionButtons button, #modal button {
+.actionButtons button, #modal button, #roundOverModal button {
   display: inline-block;
   padding: 2px 1.5vh;
   margin-right: 1vh;
@@ -180,7 +196,7 @@
   box-shadow: 0 0 5px white;
 }
 
-.actionButtons button:hover, #modal button:hover {
+.actionButtons button:hover, #modal button:hover, #roundOverModal button:hover {
   background-color: #333;
   animation: none;
 }
@@ -239,4 +255,24 @@
 
 .pointsAnimation {
   animation: points 0.3s ease-in-out, explode 0.3s linear forwards;
+}
+
+#gameOverTextLines {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-width: 0;
+}
+
+#gameOverTextLines p {
+  font-size: 3vh;
+  margin: 0;
+  padding: 0;
+}
+
+#modal {
+  backdrop-filter: blur(5px);
+  padding: 10vh;
 }

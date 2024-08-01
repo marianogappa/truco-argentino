@@ -14,7 +14,7 @@
   transition: opacity 0.5s ease;
 }
 
-#modal {
+#modal, #roundOverModal {
   background-color: transparent;
   transform: scale(0.7);
   transition: transform 0.5s ease;
@@ -25,11 +25,11 @@
   visibility: visible;
 }
 
-#roundOverModalOverlay.show #modal, #gameOverModalOverlay.show #modal {
+#roundOverModalOverlay.show #roundOverModal, #gameOverModalOverlay.show #roundOverModal {
   transform: scale(1);
 }
 
-#modal button {
+#modal button, #roundOverModal button {
   padding: 3vh;
   font-size: 3vh;
 }
@@ -54,7 +54,7 @@
 #gameOverText span {
   font-size: 9vh;
 }
-#modal {
+#modal, #roundOverModal {
   display: flex;
   flex-direction: column;
   gap: 3vh;
