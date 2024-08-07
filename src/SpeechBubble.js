@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 
 const actionTexts = {
     "say_envido": [
@@ -13,7 +14,8 @@ const actionTexts = {
             "Atienda la relacion",
             "que hace un gaucho perseguido:",
             "Ahorita le via' ganar",
-            "con este grandioso Envido !!!"
+            "con este grandioso",
+            "Envido !!!"
         ],
         [
             "Cuando vine",
@@ -864,6 +866,9 @@ const fallbackText = (action) => {
 }
 
 const getLines = (action) => {
+    if (action === null) {
+        return [];
+    }
     if (actionTexts[action.name]) {
         const options = actionTexts[action.name];
         const randomIndex = Math.floor(Math.random() * options.length);
@@ -877,44 +882,67 @@ const getSpeechBubbleClass = (lines) => {
         case 1:
             return "speech-bubble small-speech-bubble";
         case 2, 3, 4:
-            return "speech-bubble medium-speech-bubble";
+            return "speech-bubble medium-speech-bubble"
+        case 0:
+            return "speech-bubble hidden";
         default:
             return "speech-bubble";
     }
 }
 
-const SpeechBubble = ({ playerID, lastActionLog }) => {
-    const empty = (
-            <div className="speech-bubble-container column">
-            </div>
-    )
+const getAction = (playerID, lastActionLog) => {
     if (!lastActionLog) {
-        return empty;
+        return null;
     }
-    const { action, playerID: actionPlayerID } = lastActionLog;
-    // This is confusing, but the current playerID is not the one that played the action
+    const { playerID: actionPlayerID, action } = lastActionLog;
     if (playerID === actionPlayerID) {
-        return empty;
+        return null;
     }
     if (action.name === 'reveal_card' && !action.en_mesa) {
-        return empty;
+        return null;
+    }
+    return action;
+}
+
+const SpeechBubble = ({ playerID, lastActionLog, dijeTruco }) => {
+    const [showDijeTruco, setShowDijeTruco] = useState(false);
+
+    console.log("rendering speech bubble with dijeTruco", dijeTruco);
+
+    useEffect(() => {
+        if (!dijeTruco) {
+            setShowDijeTruco(false);
+            return;
+        }
+        const timer = setTimeout(() => {
+            setShowDijeTruco(true);
+        }, 2000);
+
+        return () => clearTimeout(timer); // Cleanup the timeout on component unmount
+    }, [dijeTruco]); // Add dijeTruco as a dependency
+
+    const action = getAction(playerID, lastActionLog);
+    let lines = getLines(action);
+    let speechBubbleClass = getSpeechBubbleClass(lines);
+
+    if (showDijeTruco) {
+        lines = ['Dije truco...'];
+        speechBubbleClass = "speech-bubble small-speech-bubble";
     }
 
-    const lines = getLines(action);
-    const speechBubbleClass = getSpeechBubbleClass(lines);
-
-  return (
-    <div className="speech-bubble-container column">
-        <div className={speechBubbleClass}>
-        <div className="speech-bubble-text">
-            {lines.map((line, index) => (
-                <p key={index}>{line}</p>
-            ))}
+    return (
+        <div className="speech-bubble-container column">
+            <div className={speechBubbleClass}>
+                <div className="speech-bubble-text">
+                    {lines.map((line, index) => (
+                        <p key={index}>{line}</p> // Ensure key is unique and consistent
+                    ))}
+                </div>
+                <div className="speech-bubble-arrow"></div>
+            </div>
         </div>
-        <div className="speech-bubble-arrow"></div>
-        </div>
-    </div>
-  );
+    );
 };
+
 
 export default SpeechBubble;

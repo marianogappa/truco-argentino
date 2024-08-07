@@ -24,7 +24,13 @@ export class GameStateManager {
 
         // If the game is not ended and it's the bot's turn, we run the bot action after a delay
         if (!this.gameState.isGameEnded && this.gameState.turnPlayerID !== 0) {
-            window.setTimeout(() => callback(this.runAction({}, callback)), 2000);
+            // If the bot's last action was "say_flor", let's wait twice the time
+            // because it's confusing which such long texts what the bot is doing
+            let waitTimeSeconds = 2;
+            if (this.gameState.lastActionLog && this.gameState.lastActionLog.action.name === "say_flor" && this.gameState.lastActionLog.playerID === 1) {
+                waitTimeSeconds = 4;
+            }
+            window.setTimeout(() => callback(this.runAction({}, callback)), waitTimeSeconds * 1000);
         }
 
         return this.gameState;

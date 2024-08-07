@@ -37,6 +37,8 @@ function Game({manager}) {
   const confirmRoundFinishedAction = gameState.possibleActions.find(action => action.name === "confirm_round_finished");
   const leaveGameAction = {"name": "leave_game"};
   const gameOverTextLinesDiv = document.getElementById('gameOverTextLines');
+  const dijeTruco = gameState.possibleActions.some(action => action.name === 'say_truco_quiero' && action.requires_reminder === true);
+  console.log({dijeTruco});
   let winnerImgSrc = `${process.env.PUBLIC_URL}/img/human.jpeg`
   let gameOverTextLines = [];
 
@@ -88,7 +90,7 @@ function Game({manager}) {
         <div className="gameContainer">
           <div className="row">
             <PlayerSection name="Bot" points={gameState.theirScore} imgSrc={`${process.env.PUBLIC_URL}/img/bot.png`} isTheirTurn={isBotTurn} />
-            <SpeechBubble playerID={0} lastActionLog={gameState.lastActionLog} className="column" />
+            <SpeechBubble playerID={0} lastActionLog={gameState.lastActionLog} className="column" dijeTruco={dijeTruco} />
           </div>
           <div className="row">
             <div className="theirUnrevealedCards column">

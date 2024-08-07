@@ -105,13 +105,6 @@ export function ActionButton({action, handleAction}) {
             break;
     }
 
-    if (action.name == 'say_truco_quiero' && action.requires_reminder) {
-        window.setTimeout(() => {
-            Array.from(document.getElementsByClassName('speech-bubble-text')).forEach((e) => e.textContent = 'Dije truco...');
-        }, 1000);
-    }
-
-
     return (
         <button onClick={() => handleAction(action)}>{text}</button>
     );

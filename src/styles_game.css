@@ -276,3 +276,7 @@
   backdrop-filter: blur(5px);
   padding: 10vh;
 }
+
+.hidden {
+  display: none;
+}
