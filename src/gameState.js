@@ -15,12 +15,15 @@ export class GameStateManager {
         if (this.gameState.turnPlayerID === 0) {
             if (action && action.name) {
                 this.gameState = jsRunAction(action);
+                this.playSound();
             }
         } else {
-            this.runBotAction();
+            const changed = this.runBotAction();
+            if (!changed) {
+                return null;
+            }
+            this.playSound();
         }
-
-        this.playSound();
 
         // If the game is not ended and it's the bot's turn, we run the bot action after a delay
         if (!this.gameState.isGameEnded && this.gameState.turnPlayerID !== 0) {
@@ -30,56 +33,68 @@ export class GameStateManager {
             if (this.gameState.lastActionLog && this.gameState.lastActionLog.action.name === "say_flor" && this.gameState.lastActionLog.playerID === 1) {
                 waitTimeSeconds = 4;
             }
-            window.setTimeout(() => callback(this.runAction({}, callback)), waitTimeSeconds * 1000);
+            window.setTimeout(() => {
+                const result = this.runAction({}, callback);
+                if (result) {
+                    callback(result);
+                }
+            }, waitTimeSeconds * 1000);
         }
 
         return this.gameState;
     }
 
     runBotAction() {
+        const _before = JSON.stringify(this.gameState);
         this.gameState = jsBotRunAction();
+        const _after = JSON.stringify(this.gameState);
+        return _before !== _after;
     }
 
     playSound() {
-        if (this.gameState.lastActionLog) {
-            if (this.gameState.lastActionLog.action.name === "reveal_card") {
-                playAudio('reveal_card');
-                return;
-            }
-            
-            // The computer just played the action, so the turn already changed
-            if (this.gameState.turnPlayerID === 0) {
-                switch (this.gameState.lastActionLog.action.name) {
-                    case "say_envido":
-                    case "say_real_envido":
-                    case "say_falta_envido":
-                    case "say_truco":
-                        playAudio('envido');
-                        break;
-                    case "say_envido_quiero":
-                    case "say_truco_quiero":
-                    case "say_quiero_retruco":
-                    case "say_quiero_vale_cuatro":
-                        playAudio('yes');
-                        break;
-                    case "say_envido_no_quiero":
-                    case "say_truco_no_quiero":
-                        playAudio('no');
-                        break;
-                    case "say_son_buenas":
-                        playAudio('son_buenas');
-                        break;
-                    case "say_son_mejores":
-                        playAudio('son_mejores');
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                playAudio('press');
-            }
+        if (!this.gameState.lastActionLog) {
+            return;
         }
 
+        const action = this.gameState.lastActionLog.action;
+
+        if (action.name === "reveal_card") {
+            playAudio('reveal_card');
+            return;
+        }
+        
+        // The computer just played the action, so the turn already changed
+        if (action.playerID === 0) {
+            playAudio('press');
+            return;
+        }
+
+        switch (action.name) {
+            case "say_envido":
+            case "say_real_envido":
+            case "say_falta_envido":
+            case "say_truco":
+                playAudio('envido');
+                break;
+            case "say_envido_quiero":
+            case "say_truco_quiero":
+            case "say_quiero_retruco":
+            case "say_quiero_vale_cuatro":
+                playAudio('yes');
+                break;
+            case "say_envido_no_quiero":
+            case "say_truco_no_quiero":
+                playAudio('no');
+                break;
+            case "say_son_buenas":
+                playAudio('son_buenas');
+                break;
+            case "say_son_mejores":
+                playAudio('son_mejores');
+                break;
+            default:
+                break;
+        }
     }
 }
 

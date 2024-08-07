@@ -59,3 +59,27 @@
   flex-direction: column;
   gap: 3vh;
 }
+
+#roundOverContent {
+  display: flex;
+  gap: 5vh;
+  align-items: center;
+}
+
+.roundOverContentText {
+  background-color: #d0d0d0;
+  padding: 2vh;
+  border-radius: 2vh;
+  color: black;
+}
+
+.roundOverContentSide {
+  flex: 1;
+}
+
+#roundOverContent img {
+  height: 10vh;
+  border-radius: 30%;
+  -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+    mask-image: radial-gradient(circle, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+}

@@ -782,7 +782,7 @@ const actionTexts = {
             "Contraflor al Resto"
         ],
         [
-            "Uy, uy,uy, que pest",
+            "Uy, uy,uy, que pesto",
             "ahora te zampo el",
             "Contraflor al Resto",
             "Que' tal ?",
@@ -807,15 +807,17 @@ const fallbackText = (action) => {
         case 'say_truco':
             text = 'Truco';
             break;
-        case 'say_envido_quiero':
-            text = `Quiero`;
-            break;
         case 'say_envido_score':
         case 'say_flor_score':
             text = `${action.score}`;
             break;
+        case 'say_envido_quiero':
         case 'say_truco_quiero':
-            text = 'Quiero';
+            if (action.forced) {
+                text = 'Quiero obligado';
+            } else {
+                text = 'Quiero';
+            }
             break;
         case 'say_quiero_retruco':
             text = 'Quiero retruco';
@@ -901,13 +903,14 @@ const getAction = (playerID, lastActionLog) => {
     if (action.name === 'reveal_card' && !action.en_mesa) {
         return null;
     }
+    if (action.name === 'say_me_voy_al_mazo') {
+        return null;
+    }
     return action;
 }
 
 const SpeechBubble = ({ playerID, lastActionLog, dijeTruco }) => {
     const [showDijeTruco, setShowDijeTruco] = useState(false);
-
-    console.log("rendering speech bubble with dijeTruco", dijeTruco);
 
     useEffect(() => {
         if (!dijeTruco) {
