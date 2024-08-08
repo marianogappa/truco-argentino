@@ -170,11 +170,11 @@
 
 .actionButtons {
   flex: 1;
-  display: block;
-  width: 29vh;
-  /* gap: 1vh; */
+  display: flex;
+  flex-wrap: wrap;
+  width: 25vh;
   height: 10vh;
-  padding-top: 1.5vh;
+  padding-top: 0.5vh;
   margin-bottom: 7vh;
   /* border: 1px solid white; */
 }
@@ -188,12 +188,48 @@
   opacity: 0.9;
   background-color: black;
   color: white;
-  font-size: 2vh;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
   animation: pulse 1.5s infinite;
   box-shadow: 0 0 5px white;
+}
+
+#modal button, #roundOverModal button {
+  font-size: 2vh;
+}
+
+.actionButtons button {
+  padding: 0vh 0.5vh;
+  margin-bottom: 0.5vh;
+}
+
+.twoButtons {
+  width: 10.5vh;
+  height: 11vh;
+  font-size: 2.3vh;
+}
+
+.fourButtons {
+  width: 10.5vh;
+  height: 5.5vh;
+  font-size: 1.7vh;
+}
+
+.sixButtons {
+  width: 7.3vh;
+  height: 5.5vh;
+  font-size: 1.4vh;
+}
+
+.nineButtons {
+  width: 7.3vh;
+  height: 3.6vh;
+  font-size: 1.2vh;
+}
+
+.actionButtons button:nth-child(3n+1) {
+  clear: left;
 }
 
 .actionButtons button:hover, #modal button:hover, #roundOverModal button:hover {
@@ -203,6 +239,10 @@
 
 .actionButtons button:focus {
   outline: none;
+}
+
+#Vos {
+  margin-right: 1vh;
 }
 
 .dot {

@@ -13,17 +13,18 @@ export class GameStateManager {
 
     runAction(action, callback) {
         if (this.gameState.turnPlayerID === 0) {
-            if (action && action.name) {
-                this.gameState = jsRunAction(action);
-                this.playSound();
+            if (!action || !action.name) {
+                return this.gameState;
             }
+            this.gameState = jsRunAction(action);
         } else {
             const changed = this.runBotAction();
             if (!changed) {
                 return null;
             }
-            this.playSound();
         }
+
+        this.playSound();
 
         // If the game is not ended and it's the bot's turn, we run the bot action after a delay
         if (!this.gameState.isGameEnded && this.gameState.turnPlayerID !== 0) {
@@ -34,6 +35,9 @@ export class GameStateManager {
                 waitTimeSeconds = 4;
             }
             window.setTimeout(() => {
+                if (this.gameState.turnPlayerID === 0) {
+                    return;
+                }
                 const result = this.runAction({}, callback);
                 if (result) {
                     callback(result);
@@ -74,16 +78,21 @@ export class GameStateManager {
             case "say_real_envido":
             case "say_falta_envido":
             case "say_truco":
+            case "say_flor":
                 playAudio('envido');
                 break;
             case "say_envido_quiero":
             case "say_truco_quiero":
             case "say_quiero_retruco":
             case "say_quiero_vale_cuatro":
+            case "say_contraflor":
+            case "say_contraflor_al_resto":
+            case "say_con_flor_quiero":
                 playAudio('yes');
                 break;
             case "say_envido_no_quiero":
             case "say_truco_no_quiero":
+            case "say_con_flor_me_achico":
                 playAudio('no');
                 break;
             case "say_son_buenas":

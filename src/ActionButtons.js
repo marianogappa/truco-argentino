@@ -4,16 +4,34 @@ export default function ActionButtons({isHumanTurn, actions, handleAction, isGam
             <div className="actionButtons"></div>
         );
     }
+    const actionableActions = actions.filter(action => action.name != 'reveal_card' && action.name != 'confirm_round_finished');
+    const className = getClassName(actionableActions.length);
     return (
         <div className="actionButtons">
-        {actions.filter(action => action.name != 'reveal_card' && action.name != 'confirm_round_finished').map((action) => (
-            <ActionButton action={action} handleAction={handleAction}  />
-        ))}
+            {actionableActions.map((action) => (
+                <ActionButton action={action} handleAction={handleAction} className={className} />
+            ))}
         </div>
     );
 }
+
+function getClassName(len) {
+    switch (len) {
+        case 1:
+        case 2:
+            return 'twoButtons';
+        case 3:
+        case 4:
+            return 'fourButtons';
+        case 5:
+        case 6:
+            return 'sixButtons';
+        default:
+            return 'nineButtons';
+    }
+}
   
-export function ActionButton({action, handleAction}) {
+export function ActionButton({action, handleAction, className}) {
     if (!action) {
         return null;
     }
@@ -106,6 +124,6 @@ export function ActionButton({action, handleAction}) {
     }
 
     return (
-        <button onClick={() => handleAction(action)}>{text}</button>
+        <button className={className} onClick={() => handleAction(action)}>{text}</button>
     );
 }
