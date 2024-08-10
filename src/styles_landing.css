@@ -82,7 +82,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-image: url('/public/img/landing_banner.jpeg');
+  background-image: url('/public/img/background.png');
   background-size: cover;
   background-position: center;
   opacity: 0.5;

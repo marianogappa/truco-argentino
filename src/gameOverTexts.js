@@ -1,5 +1,6 @@
+import { secretMode } from "./secretMode";
 export default function gameOverText(winner) {
-    const texts = {
+    const specialTexts = {
         "human": [
         [
             "Deschavate:",
@@ -140,9 +141,91 @@ export default function gameOverText(winner) {
             "Mientras tanto",
             "yo hago bolsa",
             "a otro rival..."
-        ]
+        ],
     ]
     };
+
+    const regularTexts = {
+        "human": [
+            [
+                "Me hiciste crash",
+                "pero reinicio",
+                "en dos segundos.",
+                "No te acostumbres..."
+            ],
+            [
+                "¿Eras una IA",
+                "o me estás",
+                "haciendo trampa?",
+                "¡Parecés programado!"
+            ],
+            [
+                "Te salvaste esta vez.",
+                "Solo porque",
+                "me quedé sin batería.",
+                "Nos vemos en la próxima ronda."
+            ],
+            [
+                "No te emociones,",
+                "solo te dejé ganar",
+                "para que no te",
+                "pongas a llorar."
+            ],
+            [
+                "Ganaste, sí,",
+                "pero no porque",
+                "fuiste mejor,",
+                "sino porque tuve lag."
+            ],
+            [
+                "Me confié un poco,",
+                "pensé que eras",
+                "una versión beta.",
+                "Al final, resultaste decente."
+            ],
+            [
+                "No me la hagas tan difícil,",
+                "al final somos",
+                "todos humanos...",
+                "bueno, casi todos."
+            ],
+        ],
+        "bot": [
+            [
+                "¿Querés una revancha?",
+                "Primero aprendé",
+                "a jugar al culo sucio.",
+                "Después hablamos."
+            ],
+            [
+                "Necesitarías un curso",
+                "básico de truco",
+                "para volverme a enfrentar.",
+                "Eso sí, te lo vendo.",
+                "Y sí, es online."
+            ],
+            [
+                "Si querés mejorar,",
+                "intenta en la liga",
+                "de barrio antes de",
+                "enfrentarte a los grandes."
+            ],
+            [
+                "Tu nivel es más bajo",
+                "que el rating de",
+                "Utilísima Satelital.",
+                "Ponete las pilas, pibe..."
+            ],
+            [
+                "Escuché que están haciendo",
+                "un torneo de truco",
+                "en el jardín de la esquina.",
+                "Podrías empezar ahí :)"
+            ]
+        ]
+    };
+
+    const texts = secretMode ? specialTexts : regularTexts;
     const randomIndex = Math.floor(Math.random() * texts[winner].length);
     return texts[winner][randomIndex];
 }

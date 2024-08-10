@@ -4,7 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Truco Argentino</title>
-	<script src="wasm/wasm_exec.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C6QJFEKLTN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-C6QJFEKLTN');
+    </script>
+	
+    <script src="wasm/wasm_exec.js"></script>
 	<script>
         const go = new Go(); // Defined in wasm_exec.js
         const WASM_URL = 'wasm/wasm.wasm';

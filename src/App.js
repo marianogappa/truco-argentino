@@ -10,6 +10,7 @@ import Hand from './Hand';
 import { playAudio, stopAudio, setMasterSwitchAudioOn } from './audio';
 import Toggle from './Toggle';
 import gameOverText from './gameOverTexts';
+import { getRoundOverContent } from './roundOver';
 
 function Game({manager}) {
   const [trigger, setTrigger] = useState(0);
@@ -66,7 +67,6 @@ function Game({manager}) {
     }
   }, [gameState.isGameEnded]);
 
-  console.log(gameState)
 
   useEffect(() => {
     if (gameState.possibleActions.length === 1 && gameState.possibleActions[0].name === "confirm_round_finished" && !gameState.isGameEnded) {
@@ -212,8 +212,7 @@ export default function GameLandingPage() {
       <div id="infoModal" className="hidden">
         <div id="infoText">
         <p>Este juego está basado en y dedicado al primer juego de computadora argentino, <a href="https://www-2.dc.uba.ar/charlas/lud/truco/" target="_blank">
-            Truco Arbiser (1982)</a>. 
-             Incluye arte del juego original (imágenes, efectos de sonido y textos), pero el motor del juego y la interfaz de usuario están 
+            Truco Arbiser (1982)</a>, pero el motor del juego y la interfaz de usuario están 
             construidos desde cero. No hay intención de lucro ni ads, solo la esperanza de que las nuevas generaciones puedan experimentar
             algunos de los momentos divertidos que vivimos en los años 90.
           </p>
@@ -223,8 +222,7 @@ export default function GameLandingPage() {
           </p>
           <hr />
           <p>This game is based on and dedicated to the first Argentinian computer game, <a href="https://www-2.dc.uba.ar/charlas/lud/truco/" target="_blank">
-            Truco Arbiser (1982)</a>.
-             It includes art from the original game (images, sound fx and texts), but the game engine and UI are built from scratch.
+            Truco Arbiser (1982)</a>, but the game engine and UI are built from scratch.
             There is no intention of profit, no ads—just the hope that new generations can experience some of the fun moments we enjoyed
             in the 90s.
           </p>
@@ -241,67 +239,4 @@ export default function GameLandingPage() {
       <div id="game"></div>
     </>
   )
-}
-
-function getRoundOverContent(gameState) {
-  const text = getRoundOverText(gameState);
-  if (!text) {
-    return (<></>);
-  }
-  return (
-    <div id="roundOverContent">
-      <div className="roundOverContentSide"></div>
-      <img src={`${process.env.PUBLIC_URL}/img/bot.png`}/>
-      <div className="roundOverContentText">{text}</div>
-      <div className="roundOverContentSide"></div>
-    </div>
-  );
-}
-
-
-function getRoundOverText(gameState) {
-  const botWinTexts = [
-    "Te hice de goma",
-    "Aprende'a jugar",
-    "Ja-ja !!",
-    "Te gaste' !!",
-    "Adios...",
-    "Adios!!",
-    "Chau pinela...!",
-    "Calenchu ... !!",
-    "Disculpe, jefe!",
-    "Ole, olita...!!",
-    "Te hice caucho!",
-    "Te hice pomada!",
-  ];
-  const humanWinTexts = [
-    "No la puedo...",
-    "No, no ligue'!",
-    "Che, que'liga!",
-    "Me quede corto",
-    "Me pasaste !!",
-    "Como robaste !",
-  ];
-
-  if (!(gameState.possibleActions.length === 1 && gameState.possibleActions[0].name === "confirm_round_finished" && !gameState.isGameEnded)) {
-    return '';
-  } 
-
-  if (!gameState.lastActionLog) {
-    return '';
-  }
-
-  if (gameState.lastActionLog.action.name === "say_me_voy_al_mazo" && gameState.lastActionLog.action.playerID === 1) {
-    return humanWinTexts[Math.floor(Math.random() * humanWinTexts.length)];
-  }
-
-  if (gameState.lastActionLog.action.name === "reveal_card") {
-    if (gameState.trucoWinnerPlayerID === 1) {
-      return botWinTexts[Math.floor(Math.random() * botWinTexts.length)];
-    } else if (gameState.trucoWinnerPlayerID === 0) {
-      return humanWinTexts[Math.floor(Math.random() * humanWinTexts.length)];
-    }
-  }
-
-  return '';
 }
