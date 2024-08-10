@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/truco-argentino/static/js/main.2cfb502e.js",
-    "main.css": "/truco-argentino/static/css/main.b526868f.css",
-    "static/media/background.png": "/truco-argentino/static/media/background.3e782b4a616339a8e069.png",
+    "main.css": "/truco-argentino/static/css/main.8123705b.css",
+    "main.js": "/truco-argentino/static/js/main.f3cd465b.js",
+    "static/media/background.png": "/truco-argentino/static/media/background.464a8c21cfbd2b187d89.png",
     "index.html": "/truco-argentino/index.html",
-    "main.2cfb502e.js.map": "/truco-argentino/static/js/main.2cfb502e.js.map",
-    "main.b526868f.css.map": "/truco-argentino/static/css/main.b526868f.css.map"
+    "main.8123705b.css.map": "/truco-argentino/static/css/main.8123705b.css.map",
+    "main.f3cd465b.js.map": "/truco-argentino/static/js/main.f3cd465b.js.map"
   },
   "entrypoints": [
-    "static/js/main.2cfb502e.js",
-    "static/css/main.b526868f.css"
+    "static/css/main.8123705b.css",
+    "static/js/main.f3cd465b.js"
   ]
 }
