@@ -5,7 +5,6 @@ export function getAudioPaths(path) {
         "reveal_card": [
             "mp3/reveal card 1.mp3",
             "mp3/reveal card 2.mp3",
-            "mp3/reveal card 3.mp3",
         ],
         "envido": [
             "mp3/envido 1.mp3",
