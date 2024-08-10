@@ -11,6 +11,7 @@ import { playAudio, stopAudio, setMasterSwitchAudioOn } from './audio';
 import Toggle from './Toggle';
 import gameOverText from './gameOverTexts';
 import { getRoundOverContent } from './roundOver';
+import { botSrc } from './secretMode';
 
 function Game({manager}) {
   const [trigger, setTrigger] = useState(0);
@@ -48,7 +49,7 @@ function Game({manager}) {
       const modalOverlay = document.getElementById('gameOverModalOverlay');
       if (gameState.winnerPlayerID === 1) {
         const winnerImgElem = document.getElementById('winnerImg');
-        winnerImgElem.src = `${process.env.PUBLIC_URL}/img/bot.png`;
+        winnerImgElem.src = botSrc;
         gameOverTextLines = gameOverText('bot');
       } else {
         gameOverTextLines = gameOverText('human');
@@ -88,7 +89,7 @@ function Game({manager}) {
         <div className="sideColumn"></div>
         <div className="gameContainer">
           <div className="row">
-            <PlayerSection name="Bot" points={gameState.theirScore} imgSrc={`${process.env.PUBLIC_URL}/img/bot.png`} isTheirTurn={isBotTurn} />
+            <PlayerSection name="Bot" points={gameState.theirScore} imgSrc={botSrc} isTheirTurn={isBotTurn} />
             <SpeechBubble playerID={0} lastActionLog={gameState.lastActionLog} className="column" dijeTruco={dijeTruco} />
           </div>
           <div className="row">
@@ -198,7 +199,7 @@ export default function GameLandingPage() {
             <div className="vsContainer">
               <img className="startGameHuman" src={`${process.env.PUBLIC_URL}/img/human.jpeg`} />
               <span className="startGameVs">VS</span>
-              <img className="startGameBot" src={`${process.env.PUBLIC_URL}/img/bot.png`} />
+              <img className="startGameBot" src={botSrc} />
             </div>
             <a id="startGameButton" onClick={() => startGame({maxPoints, isFlorEnabled})}>▶️</a>
             <Toggle option1Caption={15} option2Caption={30} option1Value={15} option2Value={30} value={maxPoints} onChange={setMaxPoints} />

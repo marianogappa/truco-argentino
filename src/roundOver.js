@@ -1,6 +1,6 @@
 import { regularHumanWinTexts, regularBotWinTexts } from './regularWinTexts';
 import { specialHumanWinTexts, specialBotWinTexts } from './specialWinTexts';
-import { secretMode } from './secretMode';
+import { secretMode, botSrc } from './secretMode';
 
 export function getRoundOverContent(gameState) {
   const text = getRoundOverText(gameState);
@@ -10,7 +10,7 @@ export function getRoundOverContent(gameState) {
   return (
     <div id="roundOverContent">
       <div className="roundOverContentSide"></div>
-      <img src={`${process.env.PUBLIC_URL}/img/bot.png`}/>
+      <img src={botSrc}/>
       <div className="roundOverContentText">{text}</div>
       <div className="roundOverContentSide"></div>
     </div>
