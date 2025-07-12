@@ -6,8 +6,8 @@ export class GameStateManager {
         this.nextGameState = null;
     }
 
-    start({maxPoints, isFlorEnabled}) {
-        this.gameState = jsTrucoNew({maxPoints, isFlorEnabled});
+    start({ maxPoints, isFlorEnabled }) {
+        this.gameState = jsTrucoNew({ maxPoints, isFlorEnabled });
         return this.gameState;
     }
 
@@ -22,6 +22,7 @@ export class GameStateManager {
             if (!changed) {
                 return null;
             }
+            // console.log("Bot:", this.gameState.lastActionLog.action.comment);
         }
 
         this.playSound();
@@ -66,7 +67,7 @@ export class GameStateManager {
             playAudio('reveal_card');
             return;
         }
-        
+
         // The computer just played the action, so the turn already changed
         if (action.playerID === 0) {
             playAudio('press');
