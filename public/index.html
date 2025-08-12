@@ -13,10 +13,10 @@
         gtag('config', 'G-C6QJFEKLTN');
     </script>
 	
-    <script src="wasm/wasm_exec.js"></script>
+    <script src="%PUBLIC_URL%/wasm/wasm_exec.js"></script>
 	<script>
         const go = new Go(); // Defined in wasm_exec.js
-        const WASM_URL = 'wasm/wasm.wasm';
+        const WASM_URL = "%PUBLIC_URL%/wasm/wasm.wasm";
 
         var wasm;
         let trucoState;
